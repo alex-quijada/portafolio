@@ -1,0 +1,480 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+.safe-bottom {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+}
+
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body { background-color: #f8fafc; color: #0f172a; }
+
+/* ── Grid backgrounds ── */
+.bg-grid-macos {
+  background-color: #f8fafc;
+  background-image:
+    linear-gradient(to right, rgba(203,213,225,0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(203,213,225,0.45) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.bg-grid-windows {
+  background-color: #f1f5f9;
+  background-image:
+    linear-gradient(to right, rgba(148,163,184,0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148,163,184,0.35) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Grid transparente (se superpone al fondo de pantalla) */
+.bg-grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(148,163,184,0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148,163,184,0.35) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.bg-grid-overlay-dark {
+  background-image:
+    linear-gradient(to right, rgba(100,116,139,0.28) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(100,116,139,0.28) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── macOS glass windows ── */
+.window-glass-macos {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(226,232,240,0.9);
+  box-shadow: 0 20px 40px -15px rgba(15,23,42,0.1), 0 0 1px 1px rgba(255,255,255,0.9);
+  border-radius: 14px;
+}
+
+/* ── Windows 11 glass windows ── */
+.window-glass-windows {
+  background: rgba(255,255,255,0.93);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(203,213,225,0.9);
+  box-shadow: 0 16px 36px -10px rgba(15,23,42,0.12);
+  border-radius: 8px;
+}
+
+/* ── macOS Dock ── */
+.dock-mac {
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 24px 48px -12px rgba(15,23,42,0.28), 0 10px 20px -10px rgba(15,23,42,0.15), 0 0 0 1px rgba(226,232,240,0.7);
+}
+
+/* ── Dock icon ── */
+.dock-icon-btn {
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+.dock-icon-btn:hover {
+  animation: dock-bounce 0.35s ease forwards;
+}
+
+@keyframes dock-bounce {
+  0%   { transform: scale(1) translateY(0); }
+  35%  { transform: scale(1.22) translateY(-6px); }
+  65%  { transform: scale(1.16) translateY(-2px); }
+  100% { transform: scale(1.18) translateY(-4px); }
+}
+
+/* ── App tiles (rounded-square app look) ── */
+.app-tile {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  font-size: 14px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.35), 0 2px 5px rgba(15,23,42,0.18);
+}
+@media (min-width: 640px) {
+  .app-tile {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    font-size: 17px;
+  }
+}
+
+/* ── Taskbar button press (Windows 11) ── */
+.btn-press {
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+.btn-press:active {
+  transform: translateY(2px) scale(0.94);
+}
+
+/* ── Dark dock ── */
+.dock-mac-dark {
+  background: rgba(15,23,42,0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(51,65,85,0.9);
+  box-shadow: 0 24px 48px -12px rgba(2,6,23,0.6), 0 10px 20px -10px rgba(2,6,23,0.4), 0 0 0 1px rgba(51,65,85,0.7);
+}
+
+/* ── Weather ── */
+@keyframes sun-spin { to { transform: rotate(360deg); } }
+@keyframes cloud-float { 0%,100% { transform: translateX(-6px); } 50% { transform: translateX(6px); } }
+@keyframes drop-fall { 0% { transform: translateY(-10px); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(72px); opacity: 0; } }
+@keyframes storm-flash { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+@keyframes sun-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+@keyframes moon-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes star-twinkle { 0%,100% { opacity: 0.25; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.15); } }
+@keyframes fog-drift { 0%,100% { opacity: 0.5; transform: translateX(0); } 50% { opacity: 0.85; transform: translateX(10px); } }
+@keyframes bar-bounce { from { transform: scaleY(0.4); } to { transform: scaleY(1); } }
+
+.weather-sun {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fef08a, #fbbf24 60%, #f59e0b);
+  box-shadow: 0 0 40px rgba(251,191,36,0.6);
+  animation: sun-pulse 4s ease-in-out infinite;
+}
+.weather-moon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fef9c3, #fde047 55%, #facc15);
+  box-shadow: 0 0 34px rgba(253,224,71,0.4);
+  animation: moon-float 5s ease-in-out infinite;
+}
+.weather-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #e0f2fe;
+  box-shadow: 0 0 6px rgba(186,230,253,0.9);
+  animation: star-twinkle 2.4s ease-in-out infinite;
+}
+.weather-fog {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.08));
+  animation: fog-drift 8s ease-in-out infinite;
+  pointer-events: none;
+}
+.weather-rays {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(251,191,36,0.85) 0deg 10deg, transparent 10deg 20deg);
+  animation: sun-spin 16s linear infinite;
+  -webkit-mask: radial-gradient(circle, transparent 0 26px, #000 27px 42px, transparent 43px);
+  mask: radial-gradient(circle, transparent 0 26px, #000 27px 42px, transparent 43px);
+}
+.weather-cloud { animation: cloud-float 6s ease-in-out infinite; }
+.weather-drop {
+  position: absolute;
+  top: 34px;
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #38bdf8, #0369a1);
+  animation: drop-fall 1s linear infinite;
+}
+.weather-storm-icon {
+  animation: storm-flash 1.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(253,224,71,0.75));
+}
+
+/* ── Traffic lights ── */
+.traffic-red    { background: #ff5f57; border: 0.5px solid rgba(0,0,0,0.12); }
+.traffic-yellow { background: #ffbd2e; border: 0.5px solid rgba(0,0,0,0.12); }
+.traffic-green  { background: #28ca42; border: 0.5px solid rgba(0,0,0,0.12); }
+
+/* ── Window animation ── */
+@keyframes win-appear {
+  from { opacity: 0; transform: scale(0.94) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.win-appear { animation: win-appear 0.22s cubic-bezier(0.34,1.56,0.64,1); }
+
+/* ── Desktop folder ── */
+.folder-ico {
+  position: relative;
+  width: 46px;
+  height: 34px;
+  border-radius: 5px 5px 9px 9px;
+  background: linear-gradient(180deg, var(--folder-a, #38bdf8), var(--folder-b, #0284c7));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), 0 5px 10px rgba(15,23,42,0.18);
+}
+.folder-ico::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 0;
+  width: 22px;
+  height: 9px;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(180deg, var(--folder-a, #38bdf8), var(--folder-b, #0284c7));
+}
+.folder-ico::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,0.25), rgba(255,255,255,0) 50%);
+}
+@media (min-width: 640px) {
+  .folder-ico {
+    width: 56px;
+    height: 41px;
+  }
+  .folder-ico::before {
+    width: 26px;
+    height: 10px;
+  }
+}
+
+/* ── Sticky note rotation ── */
+.sticky-note { transform: rotate(-2deg); transition: transform 0.3s ease; }
+.sticky-note:hover { transform: rotate(0deg); }
+
+/* ── Serif editorial ── */
+.font-serif-title { font-family: 'Playfair Display', Georgia, serif; }
+.font-mono-code   { font-family: 'Fira Code', 'Courier New', monospace; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: rgba(241,245,249,0.5); }
+::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(100,116,139,0.6); }
+
+/* ── Smooth transitions ── */
+.theme-transition { transition: background-color 0.4s ease, background-image 0.4s ease; }
+
+/* ── Focus ── */
+input:focus, textarea:focus { outline: none; }
+
+/* ── Selection ── */
+::selection { background: rgba(59,130,246,0.2); }
+
+/* ══════════════════════════════════════════════════════════
+   Theme engine
+   Tailwind v4 compiles color utilities to var(--color-*), so
+   remapping those variables on a wrapper re-themes the whole app.
+   These rules are unlayered, so they override @layer utilities.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Accent themes: remap the primary (blue) palette ── */
+.accent-emerald {
+  --color-blue-50: #ecfdf5;
+  --color-blue-100: #d1fae5;
+  --color-blue-200: #a7f3d0;
+  --color-blue-300: #6ee7b7;
+  --color-blue-400: #34d399;
+  --color-blue-500: #10b981;
+  --color-blue-600: #059669;
+  --color-blue-700: #047857;
+  --color-blue-800: #065f46;
+  --color-blue-900: #064e3b;
+  --color-blue-950: #022c22;
+}
+.accent-rose {
+  --color-blue-50: #fff1f2;
+  --color-blue-100: #ffe4e6;
+  --color-blue-200: #fecdd3;
+  --color-blue-300: #fda4af;
+  --color-blue-400: #fb7185;
+  --color-blue-500: #f43f5e;
+  --color-blue-600: #e11d48;
+  --color-blue-700: #be123c;
+  --color-blue-800: #9f1239;
+  --color-blue-900: #881337;
+  --color-blue-950: #4c0519;
+}
+.accent-violet {
+  --color-blue-50: #f5f3ff;
+  --color-blue-100: #ede9fe;
+  --color-blue-200: #ddd6fe;
+  --color-blue-300: #c4b5fd;
+  --color-blue-400: #a78bfa;
+  --color-blue-500: #8b5cf6;
+  --color-blue-600: #7c3aed;
+  --color-blue-700: #6d28d9;
+  --color-blue-800: #5b21b6;
+  --color-blue-900: #4c1d95;
+  --color-blue-950: #2e1065;
+}
+.accent-amber {
+  --color-blue-50: #fffbeb;
+  --color-blue-100: #fef3c7;
+  --color-blue-200: #fde68a;
+  --color-blue-300: #fcd34d;
+  --color-blue-400: #fbbf24;
+  --color-blue-500: #f59e0b;
+  --color-blue-600: #d97706;
+  --color-blue-700: #b45309;
+  --color-blue-800: #92400e;
+  --color-blue-900: #78350f;
+  --color-blue-950: #451a03;
+}
+.accent-cyan {
+  --color-blue-50: #ecfeff;
+  --color-blue-100: #cffafe;
+  --color-blue-200: #a5f3fc;
+  --color-blue-300: #67e8f9;
+  --color-blue-400: #22d3ee;
+  --color-blue-500: #06b6d4;
+  --color-blue-600: #0891b2;
+  --color-blue-700: #0e7490;
+  --color-blue-800: #155e75;
+  --color-blue-900: #164e63;
+  --color-blue-950: #083344;
+}
+
+/* ── Dark mode: remap light neutral shades to dark surfaces ── */
+.theme-dark {
+  color-scheme: dark;
+  --color-slate-50: #172033;
+  --color-slate-100: #1e293b;
+  --color-slate-200: #334155;
+  --color-slate-300: #475569;
+}
+
+/* Dark mode: text shades (dark in light mode) become light */
+.theme-dark .text-slate-100 { color: #f1f5f9; }
+.theme-dark .text-slate-200 { color: #e2e8f0; }
+.theme-dark .text-slate-300 { color: #cbd5e1; }
+.theme-dark .text-slate-500 { color: #94a3b8; }
+.theme-dark .text-slate-600 { color: #cbd5e1; }
+.theme-dark .text-slate-700 { color: #e2e8f0; }
+.theme-dark .text-slate-800 { color: #f1f5f9; }
+.theme-dark .text-slate-900 { color: #f8fafc; }
+
+/* Dark mode: white surfaces */
+.theme-dark .bg-white { background-color: #1e293b; }
+.theme-dark .toggle-knob { background-color: #fff; }
+.theme-dark .bg-white\/50 { background-color: rgba(15, 23, 42, 0.5); }
+.theme-dark .bg-white\/60 { background-color: rgba(15, 23, 42, 0.6); }
+.theme-dark .bg-white\/70 { background-color: rgba(15, 23, 42, 0.7); }
+.theme-dark .bg-white\/80 { background-color: rgba(30, 41, 59, 0.8); }
+.theme-dark .bg-white\/85 { background-color: rgba(15, 23, 42, 0.85); }
+.theme-dark .bg-white\/90 { background-color: rgba(15, 23, 42, 0.9); }
+.theme-dark .bg-white\/95 { background-color: rgba(15, 23, 42, 0.95); }
+.theme-dark .focus\:bg-white:focus { background-color: #1e293b; }
+
+/* Dark mode: inputs & textareas */
+.theme-dark input,
+.theme-dark textarea,
+.theme-dark select {
+  color: #f1f5f9;
+}
+.theme-dark input::placeholder,
+.theme-dark textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* Dark mode: accent tints follow the selected accent */
+.theme-dark .bg-blue-50 {
+  background-color: color-mix(in oklab, var(--color-blue-500) 16%, transparent);
+}
+.theme-dark .bg-blue-100 {
+  background-color: color-mix(in oklab, var(--color-blue-500) 26%, transparent);
+}
+.theme-dark .hover\:bg-blue-50:hover {
+  background-color: color-mix(in oklab, var(--color-blue-500) 20%, transparent);
+}
+.theme-dark .hover\:bg-blue-100:hover {
+  background-color: color-mix(in oklab, var(--color-blue-500) 30%, transparent);
+}
+.theme-dark .text-blue-600 { color: var(--color-blue-400); }
+.theme-dark .border-blue-200 {
+  border-color: color-mix(in oklab, var(--color-blue-500) 38%, transparent);
+}
+.theme-dark .border-blue-300 {
+  border-color: color-mix(in oklab, var(--color-blue-500) 48%, transparent);
+}
+.theme-dark .ring-blue-200 {
+  --tw-ring-color: color-mix(in oklab, var(--color-blue-500) 45%, transparent);
+}
+
+/* Dark mode: semantic tints (messages, active rows, alerts) */
+.theme-dark .bg-red-50 { background-color: rgba(244, 63, 94, 0.12); }
+.theme-dark .bg-rose-50 { background-color: rgba(244, 63, 94, 0.12); }
+.theme-dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.12); }
+.theme-dark .bg-amber-50 { background-color: rgba(245, 158, 11, 0.12); }
+.theme-dark .border-red-200 { border-color: rgba(244, 63, 94, 0.32); }
+.theme-dark .border-rose-200 { border-color: rgba(244, 63, 94, 0.32); }
+.theme-dark .border-emerald-200 { border-color: rgba(16, 185, 129, 0.32); }
+.theme-dark .border-amber-200 { border-color: rgba(245, 158, 11, 0.32); }
+.theme-dark .text-red-600 { color: #fb7185; }
+.theme-dark .text-rose-600 { color: #fda4af; }
+.theme-dark .text-rose-700 { color: #fda4af; }
+.theme-dark .text-emerald-600 { color: #6ee7b7; }
+.theme-dark .text-emerald-700 { color: #6ee7b7; }
+.theme-dark .text-amber-700 { color: #fcd34d; }
+.theme-dark .text-amber-800 { color: #fcd34d; }
+
+/* Dark mode: window glass */
+.theme-dark .window-glass-macos {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(51, 65, 85, 0.9);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(51, 65, 85, 0.6);
+}
+.theme-dark .window-glass-windows {
+  background: rgba(15, 23, 42, 0.94);
+  border-color: rgba(51, 65, 85, 0.9);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* Dark mode: scrollbar & selection */
+.theme-dark ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
+.theme-dark ::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.5); }
+.theme-dark ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.6); }
+.theme-dark ::selection { background: rgba(96, 165, 250, 0.3); }
+
+/* Dark mode: sticky note on the desktop */
+.theme-dark .sticky-note {
+  background-color: rgba(48, 42, 18, 0.94);
+  border-color: rgba(253, 224, 71, 0.28);
+}
+.theme-dark .sticky-note .text-yellow-900 { color: #fde047; }
+.theme-dark .sticky-note .border-yellow-300\/60 {
+  border-color: rgba(253, 224, 71, 0.22);
+}
+.theme-dark .sticky-note .border-yellow-300\/40 {
+  border-color: rgba(253, 224, 71, 0.16);
+}
